@@ -9,7 +9,7 @@ metadata:
     # Link to the GitHub source
     github.com/project-slug: sreekanth-ragi/k8s-argo
     # Optional: Link to Kubernetes runtime info
-    backstage.io/kubernetes-id: nginx-argo-service
+    backstage.io/kubernetes-id: nginx-k8s-id
 spec:
   type: service
   lifecycle: production
