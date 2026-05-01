@@ -1,0 +1,42 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: nginx-argo-template
+  title: Managed Nginx Deployment
+  description: Deploys Nginx via ArgoCD with Backstage observability
+spec:
+  owner: guest
+  type: service
+
+  parameters:
+    - title: Provide Details
+      required:
+        - name
+      properties:
+        name:
+          title: App Name
+          type: string
+          description: Unique name for the application
+
+  steps:
+    - id: fetch
+      name: Fetch Skeleton
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        repoUrl: 'github.com?owner=sreekanth-ragi&repo=${{ parameters.name }}'
+
+    - id: register
+      name: Register in Backstage
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
