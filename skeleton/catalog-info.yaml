@@ -13,4 +13,4 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: ragisreekanth@example.com
+  owner: group:default/frontend-admin
